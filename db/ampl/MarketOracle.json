@@ -1,0 +1,14 @@
+{
+    "name": "MarketOracle",
+    "contract": "Oracle",
+    "address": "0x99c9775e076fdf99388c029550155032ba2d8914",
+    "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
+    "minimumProviders": 1,
+    "providers": [
+        "0x8844dfd05AC492D1924Ad27ddD5e690B8E72D694",
+        "0xf5b7562791114fB1A8838A9E8025de4b7627Aa79",
+        "0xd95AE80B3117Fd410d276F7C276d31B2cbFf773D"
+    ],
+    "reportExpirationTimeSec": 88200,
+    "reportDelaySec": 3600
+}

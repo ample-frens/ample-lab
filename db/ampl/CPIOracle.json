@@ -1,0 +1,15 @@
+{
+    "name": "CPIOracle",
+    "contract": "Oracle",
+    "address": "0x2A18bfb505b49AED12F19F271cC1183F98ff4f71",
+    "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
+    "minimumProviders": 1,
+    "providers": [
+        "0x63A257439D423732F883cfd1d62c94f4EaD7E947",
+        "0x569881771f8d591F5a8ec1068d857dB1539AFC96",
+        "0xab8b9bE60dfAb76FD16621c296B21C61fBf63E91"
+    ],
+    "reportExpirationTimeSec": 3888000,
+    "reportDelaySec": 86400,
+    "scalar": 9669122620000000
+}
