@@ -1,20 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
-import {Vm} from "forge-std/Vm.sol";
-import {stdJson} from "forge-std/StdJson.sol";
-
-import {IERC20} from "forge-std/interfaces/IERC20.sol";
-
-import {IOwnable} from "../interfaces/IOwnable.sol";
+import {Ownable} from "../common/Ownable.sol";
 
 /**
- * @notice Ampleforth's Market oracle
+ * @notice Ampleforth's Market Oracle
  *
  * @dev An oracle derives its value via medianizing the newest valid report from
  *      each provider, if any.
  */
-interface IMarketOracle is IOwnable {
+interface MarketOracle is Ownable {
     struct Report {
         uint timestamp;
         uint payload;
@@ -28,10 +23,10 @@ interface IMarketOracle is IOwnable {
     );
 
     // -- View Functions --
-    function providerReports(address provider_)
+    function providerReports(address provider_, uint index)
         external
         view
-        returns (Report[2] memory);
+        returns (Report memory);
 
     function minimumProviders() external view returns (uint);
     function providers(uint index) external view returns (address);

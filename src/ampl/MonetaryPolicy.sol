@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
-import {Vm} from "forge-std/Vm.sol";
-import {stdJson} from "forge-std/StdJson.sol";
-
-import {IOwnable} from "../interfaces/IOwnable.sol";
+import {Ownable} from "../common/Ownable.sol";
 
 /**
  * @notice The monetary policy governing AMPLs supply adjustments
  */
-interface IMonetaryPolicy is IOwnable {
+interface MonetaryPolicy is Ownable {
     event LogRebase(
         uint indexed epoch,
         uint exchangeRate,

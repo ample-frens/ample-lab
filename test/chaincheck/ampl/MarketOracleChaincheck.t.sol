@@ -7,12 +7,12 @@ import {console2 as console} from "forge-std/console2.sol";
 
 import {Database} from "src/std/Database.sol";
 
-import {CPIOracle} from "src/ampl/CPIOracle.sol";
+import {MarketOracle} from "src/ampl/MarketOracle.sol";
 
-contract CPIOracleChaincheck is Test {
+contract MarketOracleChaincheck is Test {
     using stdJson for string;
 
-    CPIOracle oracle;
+    MarketOracle oracle;
     string config;
 
     function setUp() public {
@@ -20,8 +20,8 @@ contract CPIOracleChaincheck is Test {
         vm.createSelectFork(vm.envString("RPC_URL"));
 
         // Read config from database and instantiate contract.
-        config = Database.read("./db/ampl/CPIOracle.json");
-        oracle = CPIOracle(config.readAddress(".address"));
+        config = Database.read("./db/ampl/MarketOracle.json");
+        oracle = MarketOracle(config.readAddress(".address"));
     }
 
     function testChaincheck_ownable() public view {
@@ -64,11 +64,5 @@ contract CPIOracleChaincheck is Test {
 
         assertEq(want, got);
     }
-
-    function testChaincheck_scalar() public view {
-        uint want = config.readUint(".scalar");
-        uint got = oracle.scalar();
-
-        assertEq(want, got);
-    }
 }
+

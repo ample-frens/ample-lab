@@ -1,10 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
-import {Vm} from "forge-std/Vm.sol";
-import {stdJson} from "forge-std/StdJson.sol";
-
-import {IOwnable} from "../interfaces/IOwnable.sol";
+import {Ownable} from "../common/Ownable.sol";
 
 /**
  * @notice The Orchestrator rebase entrypoint
@@ -16,7 +13,7 @@ import {IOwnable} from "../interfaces/IOwnable.sol";
  *      atomically, after the rebase enabling the Forth DAO to coordinate the
  *      supply adjustment with external protocols.
  */
-interface IOrchestrator is IOwnable {
+interface Orchestrator is Ownable {
     struct Transaction {
         bool enabled;
         address destination;
