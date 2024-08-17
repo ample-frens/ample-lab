@@ -65,4 +65,3 @@ contract MarketOracleChaincheck is Test {
         assertEq(want, got);
     }
 }
-

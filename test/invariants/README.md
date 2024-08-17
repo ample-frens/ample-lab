@@ -24,4 +24,3 @@ Orchestrator:
 
 Timelock:
 - Every contract's owner is the Timelock
-- Every contract's pending owner is zero

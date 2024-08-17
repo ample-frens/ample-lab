@@ -94,4 +94,3 @@ contract MonetaryPolicyChaincheck is Test {
         assertEq(want, got);
     }
 }
-

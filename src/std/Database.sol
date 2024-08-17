@@ -19,4 +19,8 @@ library Database {
             );
         }
     }
+
+    function readAll() internal view returns (string[] memory) {
+        // TODO: Database.readAll()(string[])
+    }
 }

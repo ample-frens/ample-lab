@@ -7,12 +7,12 @@ import {console2 as console} from "forge-std/console2.sol";
 
 import {Database} from "src/std/Database.sol";
 
-import {MonetaryPolicy} from "src/ampl/MonetaryPolicy.sol";
+import {WAMPL} from "src/ampl/WAMPL.sol";
 
-contract MonetaryPolicyInvariants is Test {
+contract WAMPLChaincheck is Test {
     using stdJson for string;
 
-    MonetaryPolicy policy;
+    WAMPL wampl;
     string config;
 
     function setUp() public {
@@ -20,14 +20,14 @@ contract MonetaryPolicyInvariants is Test {
         vm.createSelectFork(vm.envString("RPC_URL"));
 
         // Read config from database and instantiate contract.
-        config = Database.read("./db/ampl/MonetaryPolicy.json");
-        policy = MonetaryPolicy(config.readAddress(".address"));
+        config = Database.read("./db/ampl/WAMPL.json");
+        wampl = WAMPL(config.readAddress(".address"));
     }
 
-    /// @custom:invariant The monetary policy rebased in the last 24 hours
-    function testInvariant_RebasedInTheLast24Hours() public {
-        uint lastRebase = policy.lastRebaseTimestampSec();
+    function testChaincheck_underlying() public view {
+        address want = config.readAddress(".underlying");
+        address got = wampl.underlying();
 
-        assertTrue(block.timestamp - lastRebase < 24 hours);
+        assertEq(want, got);
     }
 }

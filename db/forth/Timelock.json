@@ -1,0 +1,9 @@
+{
+    "name": "Timelock",
+    "contract": "Timelock",
+    "address": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
+    "admin": "0x8a994C6F55Be1fD2B4d0dc3B8f8F7D4E3a2dA8F1",
+    "pendingAdmin": "0x0000000000000000000000000000000000000000",
+    "delay": 172800
+}
+
