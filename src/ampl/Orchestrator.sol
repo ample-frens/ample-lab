@@ -4,14 +4,10 @@ pragma solidity ^0.8.4;
 import {Vm} from "forge-std/Vm.sol";
 import {stdJson} from "forge-std/StdJson.sol";
 
-import {MonetaryPolicy} from "./MonetaryPolicy.sol";
-
-import {Ownable} from "../common/Ownable.sol";
-
-Vm constant vm = Vm(address(uint160(uint(keccak256("hevm cheat code")))));
+import {IOwnable} from "../interfaces/IOwnable.sol";
 
 /**
- * @notice The orchestrator rebase entrypoint
+ * @notice The Orchestrator rebase entrypoint
  *
  * @dev The orchestrator providers the public callable rebase() function
  *      the execute the monetary policy's supply adjustment.
@@ -20,7 +16,7 @@ Vm constant vm = Vm(address(uint160(uint(keccak256("hevm cheat code")))));
  *      atomically, after the rebase enabling the Forth DAO to coordinate the
  *      supply adjustment with external protocols.
  */
-interface Orchestrator is Ownable {
+interface IOrchestrator is IOwnable {
     struct Transaction {
         bool enabled;
         address destination;
@@ -29,17 +25,14 @@ interface Orchestrator is Ownable {
 
     // -- View Functions --
     function policy() external view returns (address);
-    function transactions(uint index)
-        external
-        view
-        returns (Transaction memory);
-    function transactionsSize() external view returns (uint);
+    function transactions(uint256 index) external view returns (Transaction memory);
+    function transactionsSize() external view returns (uint256);
 
     // -- Mutating Functions --
     function rebase() external;
 
     // -- onlyOwner Functions --
     function addTransaction(address destination, bytes memory data) external;
-    function removeTransaction(uint index) external;
-    function setTransactionEnabled(uint index, bool enabled) external;
+    function removeTransaction(uint256 index) external;
+    function setTransactionEnabled(uint256 index, bool enabled) external;
 }
