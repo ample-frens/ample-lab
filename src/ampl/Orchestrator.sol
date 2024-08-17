@@ -25,14 +25,17 @@ interface IOrchestrator is IOwnable {
 
     // -- View Functions --
     function policy() external view returns (address);
-    function transactions(uint256 index) external view returns (Transaction memory);
-    function transactionsSize() external view returns (uint256);
+    function transactions(uint index)
+        external
+        view
+        returns (Transaction memory);
+    function transactionsSize() external view returns (uint);
 
     // -- Mutating Functions --
     function rebase() external;
 
     // -- onlyOwner Functions --
     function addTransaction(address destination, bytes memory data) external;
-    function removeTransaction(uint256 index) external;
-    function setTransactionEnabled(uint256 index, bool enabled) external;
+    function removeTransaction(uint index) external;
+    function setTransactionEnabled(uint index, bool enabled) external;
 }

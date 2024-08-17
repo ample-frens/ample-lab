@@ -11,7 +11,11 @@ import {IOwnable} from "../interfaces/IOwnable.sol";
  */
 interface IMonetaryPolicy is IOwnable {
     event LogRebase(
-        uint256 indexed epoch, uint256 exchangeRate, uint256 cpi, int256 requestedSupplyAdjustment, uint256 timestampSec
+        uint indexed epoch,
+        uint exchangeRate,
+        uint cpi,
+        int requestedSupplyAdjustment,
+        uint timestampSec
     );
 
     // -- View Functions --
@@ -27,18 +31,23 @@ interface IMonetaryPolicy is IOwnable {
     function orchestrator() external view returns (address);
 
     // Rebase parameters
-    function deviationThreshold() external view returns (uint256);
-    function rebaseLag() external view returns (uint256);
-    function minRebaseTimeIntervalSec() external view returns (uint256);
-    function lastRebaseTimestampSec() external view returns (uint256);
-    function rebaseWindowOffsetSec() external view returns (uint256);
-    function rebaseWindowLengthSec() external view returns (uint256);
+    function deviationThreshold() external view returns (uint);
+    function rebaseLag() external view returns (uint);
+    function minRebaseTimeIntervalSec() external view returns (uint);
+    function lastRebaseTimestampSec() external view returns (uint);
+    function rebaseWindowOffsetSec() external view returns (uint);
+    function rebaseWindowLengthSec() external view returns (uint);
 
     // State
-    function epoch() external view returns (uint256);
-    function globalAmpleforthEpochAndAMPLSupply() external view returns (uint256, uint256);
+    function epoch() external view returns (uint);
+    function globalAmpleforthEpochAndAMPLSupply()
+        external
+        view
+        returns (uint, uint);
     function inRebaseWindow() external view returns (bool);
-    function withinDeviationThreshold(uint256 rate, uint256 targetRate) external view;
+    function withinDeviationThreshold(uint rate, uint targetRate)
+        external
+        view;
 
     // -- onlyOrchestrator Functions --
     function rebase() external;
@@ -47,11 +56,11 @@ interface IMonetaryPolicy is IOwnable {
     function setCpiOracle(address cpiOracle_) external;
     function setMarketOracle(address marketOracle_) external;
     function setOrchestrator(address orchestrator_) external;
-    function setDeviationThreshold(uint256 deviationThreshold_) external;
-    function setRebaseLag(uint256 rebaseLag_) external;
+    function setDeviationThreshold(uint deviationThreshold_) external;
+    function setRebaseLag(uint rebaseLag_) external;
     function setRebaseTimingParameters(
-        uint256 minRebaseTimeIntervalSec_,
-        uint256 rebaseWindowOffsetSec_,
-        uint256 rebaseWindowLengthSec_
+        uint minRebaseTimeIntervalSec_,
+        uint rebaseWindowOffsetSec_,
+        uint rebaseWindowLengthSec_
     ) external;
 }

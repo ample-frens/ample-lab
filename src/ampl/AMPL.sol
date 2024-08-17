@@ -12,15 +12,15 @@ import {IOwnable} from "../interfaces/IOwnable.sol";
  * @notice The AMPL ERC-20 unit-of-account token
  */
 interface IAMPL is IOwnable, IERC20 {
-    event LogRebase(uint256 indexed epoch, uint256 totalSupply);
+    event LogRebase(uint indexed epoch, uint totalSupply);
     event LogMonetaryPolicyUpdated(address monetaryPolicy);
 
     // -- View Functions --
     function monetaryPolicy() external view returns (address);
 
     // -- Elastic Token View Functions --
-    function scaledTotalSupply() external view returns (uint256);
-    function scaledBalanceOf(address who) external view returns (uint256);
+    function scaledTotalSupply() external view returns (uint);
+    function scaledBalanceOf(address who) external view returns (uint);
 
     // -- onlyMonetaryPolicy --
     function rebase() external;

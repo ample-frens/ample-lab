@@ -1,0 +1,28 @@
+name: chaincheck
+
+on:
+  schedule:
+    - cron: '0 4 * * *' # Run at 4:00 AM UTC every day
+
+jobs:
+  chaincheck:
+    runs-on: ubuntu-latest-m
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{ secrets.GH_BOT }}
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Run Forge build
+        run: forge build
+        id: build
+
+      - name: Run chaincheck test suite
+        run: forge test --match-contract "Chaincheck"
+        id: chaincheck
