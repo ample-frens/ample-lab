@@ -1,6 +1,5 @@
 {
-    "name": "SupplyPolicy",
-    "contract": "SupplyPolicy",
+    "name": "MonetaryPolicy",
     "address": "0x1B228a749077b8e307C5856cE62Ef35d96Dca2ea",
     "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
     "ampl": "0xD46bA6D942050d489DBd938a2C909A5d5039A161",

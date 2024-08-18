@@ -1,6 +1,5 @@
 {
     "name": "CPIOracle",
-    "contract": "Oracle",
     "address": "0x2A18bfb505b49AED12F19F271cC1183F98ff4f71",
     "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
     "minimumProviders": 1,

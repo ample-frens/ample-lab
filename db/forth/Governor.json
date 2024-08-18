@@ -1,0 +1,16 @@
+{
+    "name": "Governor",
+    "address": "0x8a994C6F55Be1fD2B4d0dc3B8f8F7D4E3a2dA8F1",
+    "admin": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
+    "pendingAdmin": "0x0000000000000000000000000000000000000000",
+    "implementation": "0x444133fe9488cbec995Fd28601B3B1aD01b7fb9c",
+    "timelock": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
+    "forth": "0x77FbA179C79De5B7653F68b5039Af940AdA60ce0",
+    "proposalThreshold": 75000000000000000000000,
+    "quorumVotes": 600000000000000000000000,
+    "votingDelay": 13140,
+    "votingPeriod": 19710,
+    "proposalMaxOperations": 10
+}
+
+

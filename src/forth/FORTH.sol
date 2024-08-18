@@ -3,8 +3,6 @@ pragma solidity ^0.8.4;
 
 import {IERC20 as ERC20} from "forge-std/interfaces/IERC20.sol";
 
-import {Ownable} from "../common/Ownable.sol";
-
 /**
  * @notice The FORTH ERC-20 token governing Ampleforth
  */

@@ -25,15 +25,18 @@ contract ForthDAOInvariants is StatefulTest {
     /// @custom:invariant [2] A DAO vote can be initiated and executed before a CPI
     ///                       report's activation delay passed
     function testInvariant_DAOVoteCanPurgeCPIReports() public {
-        // TODO: ForthDAO: testInvariant_DAOVoteCanPurgeCPIReports
-        vm.skip(true);
-
         // Get DAO vote min length.
-        uint minVoteLength;
+        // Note that time is in blocks.
+        uint votingDelay = governor.votingDelay();
+        uint votingPeriod = governor.votingPeriod();
+
+        // Let minimum vote delay be 12 seconds per block and a 1 week buffer
+        // for social coordination.
+        uint minVoteDelay = (votingDelay + votingPeriod) * 12 seconds + 1 weeks;
 
         // Get CPI oracle delay.
         uint cpiDelay = cpiOracle.reportDelaySec();
 
-        assertTrue(minVoteLength < cpiDelay);
+        assertTrue(minVoteDelay < cpiDelay);
     }
 }

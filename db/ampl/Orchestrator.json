@@ -1,6 +1,5 @@
 {
     "name": "Orchestrator",
-    "contract": "Orchestrator",
     "address": "0x6FB00a180781E75F87E2B690Af0196bAa77C7e7C",
     "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
     "monetaryPolicy": "0x1B228a749077b8e307C5856cE62Ef35d96Dca2ea",

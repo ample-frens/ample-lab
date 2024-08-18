@@ -1,6 +1,5 @@
 {
     "name": "MarketOracle",
-    "contract": "Oracle",
     "address": "0x99c9775e076fdf99388c029550155032ba2d8914",
     "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
     "minimumProviders": 1,

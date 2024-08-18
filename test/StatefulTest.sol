@@ -17,6 +17,7 @@ import {Orchestrator} from "src/ampl/Orchestrator.sol";
 // Forth DAO
 import {FORTH} from "src/forth/FORTH.sol";
 import {Timelock} from "src/forth/Timelock.sol";
+import {Governor} from "src/forth/Governor.sol";
 
 contract StatefulTest is Test {
     using stdJson for string;
@@ -36,6 +37,7 @@ contract StatefulTest is Test {
     // Forth DAO
     FORTH    forth;
     Timelock timelock;
+    Governor governor;
 
     // -- Configs
 
@@ -50,6 +52,7 @@ contract StatefulTest is Test {
     // Forth DAO
     string forthConfig;
     string timelockConfig;
+    string governorConfig;
 
     function setUp() public virtual {
         // Create mainnet fork from $RPC_URL.
@@ -86,9 +89,12 @@ contract StatefulTest is Test {
         forth          = FORTH(forthConfig.readAddress(".address"));
         timelockConfig = Database.read("./db/forth/Timelock.json");
         timelock       = Timelock(timelockConfig.readAddress(".address"));
+        governorConfig = Database.read("./db/forth/Governor.json");
+        governor       = Governor(governorConfig.readAddress(".address"));
 
         vm.label(address(forth),    "FORTH");
         vm.label(address(timelock), "Timelock");
+        vm.label(address(governor), "Governor");
     }
 
     // forgefmt: disable-end
