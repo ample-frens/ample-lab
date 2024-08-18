@@ -5,7 +5,7 @@ on:
     - cron: '0 4 * * *' # Run at 4:00 AM UTC every day
 
 jobs:
-  chaincheck:
+  ampleforth:
     runs-on: ubuntu-latest-m
 
     steps:
@@ -23,7 +23,30 @@ jobs:
         id: build
 
       - name: Run chaincheck test suite
-        run: forge test --match-contract "Chaincheck"
+        run: forge test --match-contract "AmpleforthChaincheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
-        id: chaincheck
+        id: ampleforth
+
+  forth-dao:
+    runs-on: ubuntu-latest-m
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Run Forge build
+        run: forge build
+        id: build
+
+      - name: Run chaincheck test suite
+        run: forge test --match-contract "ForthDAOChaincheck"
+        env:
+          RPC_URL: ${{ secrets.RPC_URL }}
+        id: forth-dao

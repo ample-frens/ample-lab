@@ -1,63 +1,29 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
-import {Test} from "forge-std/Test.sol";
-import {stdJson} from "forge-std/StdJson.sol";
 import {console2 as console} from "forge-std/console2.sol";
 
-import {Database} from "src/std/Database.sol";
-
-import {AMPL} from "src/ampl/AMPL.sol";
-import {WAMPL} from "src/ampl/WAMPL.sol";
-import {MonetaryPolicy} from "src/ampl/MonetaryPolicy.sol";
+// Ampleforth
 import {CPIOracle} from "src/ampl/CPIOracle.sol";
 import {MarketOracle} from "src/ampl/MarketOracle.sol";
 import {Orchestrator} from "src/ampl/Orchestrator.sol";
 
-contract AmpleforthInvariants is Test {
-    using stdJson for string;
+import {StatefulTest} from "../StatefulTest.sol";
 
-    AMPL ampl;
-    WAMPL wampl;
-    MonetaryPolicy monetaryPolicy;
-    CPIOracle cpiOracle;
-    MarketOracle marketOracle;
-    Orchestrator orchestrator;
-
-    function setUp() public {
-        // Create mainnet fork from $RPC_URL.
-        vm.createSelectFork(vm.envString("RPC_URL"));
-
-        // Read configs from database and instantiate contracts.
-        ampl =
-            AMPL(Database.read("./db/ampl/AMPL.json").readAddress(".address"));
-        wampl =
-            WAMPL(Database.read("./db/ampl/WAMPL.json").readAddress(".address"));
-        monetaryPolicy = MonetaryPolicy(
-            Database.read("./db/ampl/MonetaryPolicy.json").readAddress(
-                ".address"
-            )
-        );
-        cpiOracle = CPIOracle(
-            Database.read("./db/ampl/CPIOracle.json").readAddress(".address")
-        );
-        marketOracle = MarketOracle(
-            Database.read("./db/ampl/MarketOracle.json").readAddress(".address")
-        );
-        orchestrator = Orchestrator(
-            Database.read("./db/ampl/Orchestrator.json").readAddress(".address")
-        );
+contract AmpleforthInvariants is StatefulTest {
+    function setUp() public override(StatefulTest) {
+        super.setUp();
     }
 
     /// @custom:invariant The monetary policy rebased in the last 24 hours
-    function testInvariant_MonetaryPolicyRebasedInTheLast24Hours() public {
+    function test_MonetaryPolicyRebasedInTheLast24Hours() public {
         uint lastRebase = monetaryPolicy.lastRebaseTimestampSec();
 
         assertTrue(block.timestamp - lastRebase < 24 hours);
     }
 
     /// @custom:invariant The CPI oracle providers valid data
-    function testInvariant_CPIOracleProvidesValidData() public {
+    function test_CPIOracleProvidesValidData() public {
         uint val;
         bool ok;
         (val, ok) = cpiOracle.getData();
@@ -66,7 +32,7 @@ contract AmpleforthInvariants is Test {
     }
 
     /// @custom:invariant Every CPI oracle provider provides a valid report
-    function testInvariant_EveryCPIOracleProviderProvidesValidReport() public {
+    function test_EveryCPIOracleProviderProvidesValidReport() public {
         // Get delay and expiration thresholds.
         uint delay = cpiOracle.reportDelaySec();
         uint expiration = cpiOracle.reportExpirationTimeSec();
@@ -112,7 +78,7 @@ contract AmpleforthInvariants is Test {
     }
 
     /// @custom:invariant The market oracle providers valid data
-    function testInvariant_MarketOracleProvidesValidData() public {
+    function test_MarketOracleProvidesValidData() public {
         uint val;
         bool ok;
         (val, ok) = marketOracle.getData();
@@ -121,9 +87,7 @@ contract AmpleforthInvariants is Test {
     }
 
     /// @custom:invariant Every market oracle provider provides a valid report
-    function testInvariant_EveryMarketOracleProviderProvidesValidReport()
-        public
-    {
+    function test_EveryMarketOracleProviderProvidesValidReport() public {
         // Get delay and expiration thresholds.
         uint delay = marketOracle.reportDelaySec();
         uint expiration = marketOracle.reportExpirationTimeSec();
@@ -169,7 +133,7 @@ contract AmpleforthInvariants is Test {
     }
 
     /// @custom:invariant Every orchestrator transaction is enabled
-    function testInvariant_EveryOrchestratorTransactionIsEnabled() public {
+    function test_EveryOrchestratorTransactionIsEnabled() public {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
@@ -181,7 +145,7 @@ contract AmpleforthInvariants is Test {
     }
 
     /// @custom:invariant Every orchestrator transaction is executable
-    function testInvariant_EveryOrchestratorTransactionIsExecutable() public {
+    function test_EveryOrchestratorTransactionIsExecutable() public {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
