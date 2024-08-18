@@ -1,6 +1,16 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
+struct Proposal {
+    Operation[] operations;
+}
+
+struct Operation {
+    address target;
+    bytes payload;
+    uint value;
+}
+
 /**
  * @notice
  */

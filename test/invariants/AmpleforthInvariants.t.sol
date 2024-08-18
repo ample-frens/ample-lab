@@ -137,10 +137,10 @@ contract AmpleforthInvariants is StatefulTest {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
-            Orchestrator.Transaction memory transaction =
-                orchestrator.transactions(i);
+            bool enabled;
+            (enabled, /*target*/, /*data*/ ) = orchestrator.transactions(i);
 
-            assertTrue(transaction.enabled);
+            assertTrue(enabled);
         }
     }
 
@@ -149,14 +149,17 @@ contract AmpleforthInvariants is StatefulTest {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
-            Orchestrator.Transaction memory tx_ = orchestrator.transactions(i);
+            bool enabled;
+            address target;
+            bytes memory data;
+            (enabled, target, data) = orchestrator.transactions(i);
 
-            if (!tx_.enabled) {
+            if (!enabled) {
                 continue;
             }
 
             vm.prank(address(orchestrator));
-            (bool ok,) = tx_.destination.call(tx_.data);
+            (bool ok,) = target.call(data);
             assertTrue(ok);
         }
     }

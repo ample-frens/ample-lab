@@ -18,7 +18,6 @@ contract ForthDAOInvariants is StatefulTest {
         assertEq(orchestrator.owner(), address(timelock));
 
         // Forth
-        // Note that FORTH only provides a minter role.
         assertEq(forth.minter(), address(timelock));
         assertEq(governor.admin(), address(timelock));
     }

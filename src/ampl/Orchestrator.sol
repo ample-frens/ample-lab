@@ -25,7 +25,7 @@ interface Orchestrator is Ownable {
     function transactions(uint index)
         external
         view
-        returns (Transaction memory);
+        returns (bool, address, bytes memory);
     function transactionsSize() external view returns (uint);
 
     // -- Mutating Functions --

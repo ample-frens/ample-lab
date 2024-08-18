@@ -6,20 +6,43 @@ import {stdJson} from "forge-std/StdJson.sol";
 
 import {StatefulTest} from "../StatefulTest.sol";
 
+struct Proposal {
+    uint executionBlock;
+    Operation[] operations;
+}
+
+struct Operation {
+    address target;
+    bytes payload;
+    uint value;
+}
+
 contract ProposalTest is StatefulTest {
-    function setUp() public override(StatefulTest) {
+    Proposal proposal;
+
+    function setUp() public virtual override(StatefulTest) {
         super.setUp();
     }
 
-    struct Proposal {
-        Operation[] operations;
-    }
+    function setUpExecutedProposal()
+        public
+        returns (bool[] memory, bytes[] memory)
+    {
+        // Create mainnet fork from $RPC_URL at proposal's execution block.
+        vm.createSelectFork(vm.envString("RPC_URL"), proposal.executionBlock);
 
-    struct Operation {
-        address target;
-        bytes payload;
-        uint value;
-    }
+        // Execute proposal's operations.
+        uint len = proposal.operations.length;
+        bool[] memory oks = new bool[](len);
+        bytes[] memory datas = new bytes[](len);
+        for (uint i; i < proposal.operations.length; i++) {
+            Operation memory op = proposal.operations[i];
 
-    function execute(Proposal memory proposal) public {}
+            vm.prank(address(timelock));
+            (oks[i], datas[i]) =
+                payable(op.target).call{value: op.value}(op.payload);
+        }
+
+        return (oks, datas);
+    }
 }
