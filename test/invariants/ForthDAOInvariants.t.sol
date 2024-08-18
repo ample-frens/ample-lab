@@ -20,6 +20,7 @@ contract ForthDAOInvariants is StatefulTest {
         // Forth
         // Note that FORTH only provides a minter role.
         assertEq(forth.minter(), address(timelock));
+        assertEq(governor.admin(), address(timelock));
     }
 
     /// @custom:invariant [2] A DAO vote can be initiated and executed before a CPI
