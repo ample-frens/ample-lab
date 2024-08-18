@@ -15,14 +15,14 @@ contract AmpleforthInvariants is StatefulTest {
         super.setUp();
     }
 
-    /// @custom:invariant The monetary policy rebased in the last 24 hours
-    function test_MonetaryPolicyRebasedInTheLast24Hours() public {
+    /// @custom:invariant [1] The monetary policy rebased in the last 24 hours
+    function test_MonetaryPolicyRebasedInTheLast24Hours() public view {
         uint lastRebase = monetaryPolicy.lastRebaseTimestampSec();
 
         assertTrue(block.timestamp - lastRebase < 24 hours);
     }
 
-    /// @custom:invariant The CPI oracle providers valid data
+    /// @custom:invariant [2] The CPI oracle provides valid data
     function test_CPIOracleProvidesValidData() public {
         uint val;
         bool ok;
@@ -31,7 +31,7 @@ contract AmpleforthInvariants is StatefulTest {
         assertTrue(ok);
     }
 
-    /// @custom:invariant Every CPI oracle provider provides a valid report
+    /// @custom:invariant [3] Every CPI oracle provider provides a valid report
     function test_EveryCPIOracleProviderProvidesValidReport() public {
         // Get delay and expiration thresholds.
         uint delay = cpiOracle.reportDelaySec();
@@ -77,7 +77,7 @@ contract AmpleforthInvariants is StatefulTest {
         }
     }
 
-    /// @custom:invariant The market oracle providers valid data
+    /// @custom:invariant [4] The market oracle providers valid data
     function test_MarketOracleProvidesValidData() public {
         uint val;
         bool ok;
@@ -86,7 +86,7 @@ contract AmpleforthInvariants is StatefulTest {
         assertTrue(ok);
     }
 
-    /// @custom:invariant Every market oracle provider provides a valid report
+    /// @custom:invariant [5] Every market oracle provider provides a valid report
     function test_EveryMarketOracleProviderProvidesValidReport() public {
         // Get delay and expiration thresholds.
         uint delay = marketOracle.reportDelaySec();
@@ -132,8 +132,8 @@ contract AmpleforthInvariants is StatefulTest {
         }
     }
 
-    /// @custom:invariant Every orchestrator transaction is enabled
-    function test_EveryOrchestratorTransactionIsEnabled() public {
+    /// @custom:invariant [6] Every orchestrator transaction is enabled
+    function test_EveryOrchestratorTransactionIsEnabled() public view {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
@@ -144,7 +144,7 @@ contract AmpleforthInvariants is StatefulTest {
         }
     }
 
-    /// @custom:invariant Every orchestrator transaction is executable
+    /// @custom:invariant [7] Every orchestrator transaction is executable
     function test_EveryOrchestratorTransactionIsExecutable() public {
         uint transactionsSize = orchestrator.transactionsSize();
 
