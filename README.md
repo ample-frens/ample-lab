@@ -3,7 +3,11 @@
 This project provides a security focused Solidity environment for analyzing the Ampleforth protocol
 and ecosystem.
 
-The projects consists of multiple stateful test suites against the current Ethereum mainnet state.
+It provides multiple test suites to execute against the Ethereum mainnet state. These test suites
+are run periodically to monitor the protocol.
+
+This repository also contains a database of Ampleforth contracts and onchain configurations inside
+the `db/` directory. This database is checked periodically against the mainnet state.
 
 
 ## Installation and Setup
