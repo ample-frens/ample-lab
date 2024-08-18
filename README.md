@@ -1,20 +1,48 @@
 # Lab
 
-> A Solidity lab for the Ampleforth ecosystem
+This project provides a security focused Solidity environment for analyzing the Ampleforth protocol
+and ecosystem.
 
-## Setup
+The projects consists of multiple stateful test suites against the current Ethereum mainnet state.
 
-- Set `RPC_URL` in `.env` to Ethereum mainnet node and `source .env`
+
+## Installation and Setup
+
+To install as foundry module:
+```bash
+$ forge install ample-frens/lab
+```
+
+To install as git repository:
+```bash
+$ git clone https://github.com/ample-frens/lab
+```
+
+Set the `RPC_URL` variable inside `.env` to an Ethereum rpc node and source `.env`:
+```bash
+$ source .env
+```
 
 
 ## Chaincheck
 
-The `chaincheck` test suite verifies the lab's database against the current Ethereum mainnet state.
+The `chaincheck` test suite verifies the current Ethereum mainnet state against the lab's local
+database `db/`. This ensures changes in security configurations are noticed.
 
+Run via:
+```bash
+$ forge test --mc "Chaincheck"
+```
 
 ## Invariants
 
-The `invariants` test suite verifies invariants against the current Ethereum mainnet state.
+The `invariants` test suite verifies different invariants against the current Ethereum mainnet
+state. Note that some invariants may be considered optional.
+
+Run via:
+```bash
+$ forge test --mc "Invariants"
+```
 
 ### Ampleforth Invariants
 
@@ -30,3 +58,4 @@ The `invariants` test suite verifies invariants against the current Ethereum mai
 
 1. The timelock owns every contract except itself
 2. A DAO vote can be initiated and executed before a CPI report's activation delay passed
+
