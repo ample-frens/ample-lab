@@ -1,5 +1,9 @@
 # Security Review: Oracle Infrastructure
 
+> [!NOTE]
+>
+> This security review was posted and is discussed [on the Ampleforth forum](https://forum.ampleforth.org/t/security-review-oracle-infrastructure/768/1).
+
 In August 2024 [merkleplant](https://merkleplant.xyz) from the `ample-frens` project conducted a security review of the CPI and market oracles owned by the ForthDAO and used by the Ampleforth protocol.
 
 Note that this security review is not focused on the oracles' contract code but rather on the configuration and behavior of providers at the time of the review.
@@ -157,7 +161,7 @@ These TWAP values could be added as an own provider or tie breaker.
 | minimum providers | 1                                                                                   |
 | providers | [Ampleforth Genesis Team](https://etherscan.io/address/0x63A257439D423732F883cfd1d62c94f4EaD7E947), [Chainlink](https://etherscan.io/address/0xab8b9bE60dfAb76FD16621c296B21C61fBf63E91), [Tellor](https://etherscan.io/address/0x569881771f8d591F5a8ec1068d857dB1539AFC96)
 
-> NOTE
+> [!NOTE]
 >
 > This review does not evaluate the `expiration` security parameter.
 > The respective discussion is moved to the [Incident 2024/08/17: Rebase failure to due invalid CPI oracle data](../incident-reviews/2024_08_17_RebaseFailureDueToInvalidCPIOracleData.md).
@@ -176,7 +180,7 @@ The Chainlink provider uses a Chainlink Keeper contract to push a new report eve
 
 As per [`data.chain.link`](https://data.chain.link/feeds/ethereum/mainnet/consumer-price-index), the `CPI index` feed has a time expiration of 35 days and spread expiration of 1,000%. Effectively, this means the feed is updated every 35 days, meaning also the Chainlink provider pushes a new report every 35 days.
 
-However, the Chainlink Keeper contract is outdated and pushes reports to a previous version the CPI oracle. Therefore, from the CPI oracle's view this provider is offline at the time of writing!
+However, the Chainlink Keeper contract is outdated and pushes reports to a previous version the CPI oracle. Therefore, from the CPI oracle's view _this provider is offline at the time of writing_!
 
 Note that no documentation as to where the CPI data is queried from was found.
 
@@ -190,11 +194,11 @@ Note that no documentation as to where the CPI data is queried from was found.
 
 ### Recommendations
 
-There are multiple recommendations for the ForthDAO to increase the CPI oracle'markets security, liveliness, and transparency guarantees.
+There are multiple recommendations for the ForthDAO to increase the CPI oracle's security, liveliness, and transparency guarantees.
 
-> NOTE
+> [!NOTE]
 >
-> There one important difference between the CPI and market oracle's configuration is the `delay` security parameter.
+> One important difference between the CPI and market oracle's configuration is the `delay` security parameter.
 >
 > The CPI oracle's report `delay` gives enough time for the ForthDAO to socially coordinate and, via a governance vote, purge invalid reports. This significantly lowers the severity of any malicious provider attack scenario.
 
@@ -216,5 +220,6 @@ There are multiple invariants and tests that can be derived and continuously ver
 - Verify every oracle has at any point in time one valid report per provider
 - Verify every oracle at any point in time can be read successfully
 - Verify that for every oracle `delay < expiration`
+- Verify an invalid CPI report can be purged by the ForthDAO before it becomes valid
 
 The `ample-frens` project aims to continuously monitor the Ampleforth protocol's health, security, and liveliness, and provide security services for the ForthDAO.

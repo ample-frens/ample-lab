@@ -1,5 +1,9 @@
 # Incident 2024/08/17: Rebase Failure Due To Invalid CPI Oracle Data
 
+> [!NOTE]
+>
+> This incident report was posted and is discussed [on the Ampleforth forum](https://forum.ampleforth.org/t/incident-report-rebase-failure-due-to-invalid-cpi-oracle-data/767).
+
 This document analyses the failing rebase operation from Aug 17 2024.
 
 ## Summary
@@ -20,16 +24,16 @@ Note that the CPI oracle's configuration got updated just a couple of hours befo
 
 ## Analysis
 
-> NOTE
+> [!TIP]
 >
 > For a reminder on how the oracles work internally, see [this post](https://forum.ampleforth.org/t/technical-implementation-of-the-rebase-operation/578#h-3-the-monetarypolicy-fetches-the-target-and-market-rate-from-the-oracles-5).
 
-> NOTE
+> [!NOTE]
 >
 > The analysis was performed with the following tools and environment:
 > - `cast` and `anvil`, both tools from the [foundry toolkit](https://getfoundry.sh/)
 > - [Alchemy](https://www.alchemy.com/) Ethereum RPC URL stored stored in the `$rpc` environment variable
-> - CPI oracle address is stored in the `$cpi` environment variable
+> - CPI oracle address stored in the `$cpi` environment variable
 
 The analysis is performed via forking the Ethereum chain at the block of the rebase tx:
 ```bash
@@ -42,7 +46,7 @@ $ cast call $cpi "minimumProviders()(uint)"
 > 1
 ```
 
-As 1 valid report is enough for the oracle to provide valid reports, it indicates the oracle does not hold a single valid report at current block number.
+As one valid report is enough for the oracle to serve data, it indicates the oracle does not hold a single valid report at current block number.
 
 Therefore, analyze how many providers the oracle has:
 ```bash
@@ -50,7 +54,7 @@ $ cast call $cpi "providersSize()(uint)"
 > 3
 ```
 
-The oracle depends on three different providers pushing data onchain. Those providers are:
+The oracle depends on three different providers pushing data onchain. These providers are:
 - The Ampleforth Genesis Team
 - Chainlink
 - Tellor
@@ -158,4 +162,4 @@ Note: Omitting non-existing reports from 0xab8b9bE60dfAb76FD16621c296B21C61fBf63
 
 ## Results
 
-This incident report proves that the recent configuration change lead to the CPI oracle failure.
+This incident report proves that the recent configuration change lead to the CPI oracle failure. Furthermore, it is shown that the CPI oracle does not serve data until Aug 23, meaning up until then no rebase operation will be possible.
