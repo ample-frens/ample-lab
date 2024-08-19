@@ -10,6 +10,8 @@ import {Orchestrator} from "src/ampl/Orchestrator.sol";
 
 import {StatefulTest} from "../StatefulTest.sol";
 
+// TODO: Oracles: delay < expiration
+
 contract AmpleforthInvariants is StatefulTest {
     function setUp() public override(StatefulTest) {
         super.setUp();
