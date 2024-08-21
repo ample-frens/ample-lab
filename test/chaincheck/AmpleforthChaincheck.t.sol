@@ -221,20 +221,22 @@ contract AmpleforthChaincheck is StatefulTest {
     }
 
     function test_orchestrator_transactions() public view {
-        bytes[] memory want = orchestratorConfig.readBytesArray(".transactions");
+        bytes[] memory transactions =
+            orchestratorConfig.readBytesArray(".transactions");
 
-        uint size = orchestrator.transactionsSize();
-        assertEq(want.length, size);
+        // Verify transactions size.
+        assertEq(transactions.length, orchestrator.transactionsSize());
 
-        for (uint i; i < size; i++) {
+        // Verify each transactions.
+        for (uint i; i < transactions.length; i++) {
             bool enabled;
             address target;
             bytes memory payload;
             (enabled, target, payload) = orchestrator.transactions(i);
 
-            bytes memory got = abi.encodePacked(enabled, target, payload);
-
-            assertEq(want[i], got);
+            assertEq(
+                transactions[i], abi.encodePacked(enabled, target, payload)
+            );
         }
     }
 }

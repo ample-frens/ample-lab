@@ -1,0 +1,13 @@
+{
+    "name": "BondIssuer",
+    "address": "0x5613Fc36A431c9c2746763B80C1DD89e03593871",
+    "owner": "0x223592a191ECfC7FDC38a9256c3BD96E771539A9",
+    "bondFactory": "0x17550f48c61915A67F216a083ced89E04d91fD54",
+    "collateral": "0xD46bA6D942050d489DBd938a2C909A5d5039A161",
+    "maxMaturityDuration": 2419200,
+    "trancheRatios": [
+        333, 667
+    ],
+    "minIssueTimeIntervalSec": 604800,
+    "issueWindowOffsetSec": 529200
+}

@@ -9,7 +9,7 @@ contract ForthDAOInvariants is StatefulTest {
     }
 
     /// @custom:invariant [1] The Timelock owns every contract except itself
-    function testInvariant_TimelockOwnsEveryContract() public view {
+    function test_TimelockOwnsEveryContract() public view {
         // Ampleforth
         assertEq(ampl.owner(), address(timelock));
         assertEq(cpiOracle.owner(), address(timelock));
@@ -20,11 +20,14 @@ contract ForthDAOInvariants is StatefulTest {
         // Forth
         assertEq(forth.minter(), address(timelock));
         assertEq(governor.admin(), address(timelock));
+
+        // SPOT
+        assertEq(bondIssuer.owner(), address(timelock));
     }
 
     /// @custom:invariant [2] A DAO vote can be initiated and executed before a CPI
     ///                       report's activation delay passed
-    function testInvariant_DAOVoteCanPurgeCPIReports() public {
+    function test_DAOVoteCanPurgeCPIReports() public {
         // Get DAO vote min length.
         // Note that time is in blocks.
         uint votingDelay = governor.votingDelay();

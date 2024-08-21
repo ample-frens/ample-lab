@@ -19,6 +19,9 @@ import {FORTH} from "src/forth/FORTH.sol";
 import {Timelock} from "src/forth/Timelock.sol";
 import {Governor} from "src/forth/Governor.sol";
 
+// SPOT
+import {BondIssuer} from "src/spot/BondIssuer.sol";
+
 contract StatefulTest is Test {
     using stdJson for string;
 
@@ -39,6 +42,9 @@ contract StatefulTest is Test {
     Timelock timelock;
     Governor governor;
 
+    // SPOT
+    BondIssuer bondIssuer;
+
     // -- Configs
 
     // Ampleforth
@@ -54,12 +60,16 @@ contract StatefulTest is Test {
     string timelockConfig;
     string governorConfig;
 
+    // SPOT
+    string bondIssuerConfig;
+
     function setUp() public virtual {
         // Create mainnet fork from $RPC_URL.
         vm.createSelectFork(vm.envString("RPC_URL"));
 
         _setUpAmpleforth();
         _setUpForthDAO();
+        _setUpSPOT();
     }
 
     function _setUpAmpleforth() private {
@@ -95,6 +105,13 @@ contract StatefulTest is Test {
         vm.label(address(forth),    "FORTH");
         vm.label(address(timelock), "Timelock");
         vm.label(address(governor), "Governor");
+    }
+
+    function _setUpSPOT() private {
+        bondIssuerConfig = Database.read("./db/spot/BondIssuer.json");
+        bondIssuer       = BondIssuer(bondIssuerConfig.readAddress(".address"));
+
+        vm.label(address(bondIssuer), "BondIssuer");
     }
 
     // forgefmt: disable-end
