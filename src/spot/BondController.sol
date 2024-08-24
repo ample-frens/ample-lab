@@ -19,11 +19,15 @@ interface BondController {
     // -- Tranche Data
     struct TrancheData {
         address token;
-        uint256 ratio;
+        uint ratio;
     }
+
     function tranches() external view returns (address, uint);
     function trancheCount() external view returns (uint);
-    function trancheTokenAddresses(address tranche_) external view returns (bool);
+    function trancheTokenAddresses(address tranche_)
+        external
+        view
+        returns (bool);
 
     // -- Public View Functions --
     function getTrancheName(
@@ -40,4 +44,3 @@ interface BondController {
 
     function collateralBalance() external view returns (uint);
 }
-

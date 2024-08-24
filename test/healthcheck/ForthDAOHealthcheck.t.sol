@@ -43,4 +43,3 @@ contract ForthDAOHealthcheck is StatefulTest {
         assertTrue(minVoteDelay < cpiDelay);
     }
 }
-

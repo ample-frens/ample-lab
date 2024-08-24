@@ -7,4 +7,3 @@ interface BondFactory {
     function target() external view returns (address);
     function trancheFactory() external view returns (address);
 }
-

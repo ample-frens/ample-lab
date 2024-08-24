@@ -13,4 +13,3 @@ contract SPOTHealthcheck is StatefulTest {
         assertTrue(bondIssuer.activeCount() > 3);
     }
 }
-

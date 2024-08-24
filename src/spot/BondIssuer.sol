@@ -33,4 +33,3 @@ interface BondIssuer is Ownable {
         uint issueWindowOffsetSec_
     ) external;
 }
-

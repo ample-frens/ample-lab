@@ -3,7 +3,4 @@ pragma solidity ^0.8.4;
 
 import {Ownable} from "../common/Ownable.sol";
 
-interface FeePolicy is Ownable {
-
-}
-
+interface FeePolicy is Ownable {}
