@@ -3,13 +3,13 @@ pragma solidity ^0.8.4;
 
 import {StatefulTest} from "../StatefulTest.sol";
 
-contract ForthDAOInvariants is StatefulTest {
+contract ForthDAOHealthcheck is StatefulTest {
     function setUp() public override(StatefulTest) {
         super.setUp();
     }
 
-    /// @custom:invariant [1] The Timelock owns every contract except itself
-    function test_TimelockOwnsEveryContract() public view {
+    /// @dev Tests whether every contract is owned by the ForthDAO's timelock.
+    function test_timelock_OwnsEveryContract() public view {
         // Ampleforth
         assertEq(ampl.owner(), address(timelock));
         assertEq(cpiOracle.owner(), address(timelock));
@@ -25,9 +25,9 @@ contract ForthDAOInvariants is StatefulTest {
         assertEq(bondIssuer.owner(), address(timelock));
     }
 
-    /// @custom:invariant [2] A DAO vote can be initiated and executed before a CPI
-    ///                       report's activation delay passed
-    function test_DAOVoteCanPurgeCPIReports() public {
+    /// @dev Test whether the ForthDAO can purge invalid CPI reports before they
+    ///      are becoming valid, ie their delay passed.
+    function test_daoVote_CanPurgeCPIReportsBeforeBecomingValid() public view {
         // Get DAO vote min length.
         // Note that time is in blocks.
         uint votingDelay = governor.votingDelay();
@@ -43,3 +43,4 @@ contract ForthDAOInvariants is StatefulTest {
         assertTrue(minVoteDelay < cpiDelay);
     }
 }
+

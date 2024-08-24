@@ -1,4 +1,4 @@
-# `ample-labs`
+# `ample-lab`
 
 This project provides:
 - A security focused Solidity environment for analyzing the Ampleforth protocol and ecosystem
@@ -34,17 +34,17 @@ Run via:
 $ forge test --mc "Chaincheck"
 ```
 
-### Invariants
+### Healthchecks
 
-The `invariants` test suite verifies different invariants against the current Ethereum mainnet
-state. Note that some invariants may be considered optional.
+The `healthcheck` test suite consists of multiple healthchecks against different parts of the
+protocol(s) that are run against the current Ethereum mainnet state.
 
 Run via:
 ```bash
-$ forge test --mc "Invariants"
+$ forge test --mc "Healthcheck"
 ```
 
-#### Ampleforth Invariants
+#### Ampleforth Healthchecks
 
 - The monetary policy executed a rebase in the last 24 hours
 - The CPI oracle provides valid data
@@ -54,10 +54,32 @@ $ forge test --mc "Invariants"
 - Every transaction stored in the orchestrator is enabled
 - Every orchestrator transaction is executable
 
-#### ForthDAO Invariants
+#### ForthDAO Healthchecks
 
 - The timelock owns every contract except itself
 - A DAO vote can be initiated and executed before a CPI report's activation delay passed
+
+#### SPOT Healthchecks
+
+- Bond issuer has at least three active bonds
+
+### Invariants
+
+The `invariants` test suite verifies different invariants against the current Ethereum mainnet
+state.
+
+Run via:
+```bash
+$ forge test --mc "Invariants"
+```
+
+#### Ampleforth Invariants
+
+#### ForthDAO Invariants
+
+#### SPOT Invariants
+
+- Every issued bond is collateralized via AMPL
 
 ## Security Reviews
 

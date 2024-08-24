@@ -34,4 +34,3 @@ interface BondIssuer is Ownable {
     ) external;
 }
 
-// TODO: Need string function

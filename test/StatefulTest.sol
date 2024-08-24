@@ -21,6 +21,8 @@ import {Governor} from "src/forth/Governor.sol";
 
 // SPOT
 import {BondIssuer} from "src/spot/BondIssuer.sol";
+import {BondFactory} from "src/spot/BondFactory.sol";
+import {BondController} from "src/spot/BondController.sol";
 
 contract StatefulTest is Test {
     using stdJson for string;
@@ -43,7 +45,8 @@ contract StatefulTest is Test {
     Governor governor;
 
     // SPOT
-    BondIssuer bondIssuer;
+    BondIssuer  bondIssuer;
+    BondFactory bondFactory;
 
     // -- Configs
 
@@ -62,6 +65,7 @@ contract StatefulTest is Test {
 
     // SPOT
     string bondIssuerConfig;
+    string bondFactoryConfig;
 
     function setUp() public virtual {
         // Create mainnet fork from $RPC_URL.
@@ -108,10 +112,13 @@ contract StatefulTest is Test {
     }
 
     function _setUpSPOT() private {
-        bondIssuerConfig = Database.read("./db/spot/BondIssuer.json");
-        bondIssuer       = BondIssuer(bondIssuerConfig.readAddress(".address"));
+        bondIssuerConfig  = Database.read("./db/spot/BondIssuer.json");
+        bondIssuer        = BondIssuer(bondIssuerConfig.readAddress(".address"));
+        bondFactoryConfig = Database.read("./db/spot/BondFactory.json");
+        bondFactory       = BondFactory(bondFactoryConfig.readAddress(".address"));
 
         vm.label(address(bondIssuer), "BondIssuer");
+        vm.label(address(bondFactory), "BondFactory");
     }
 
     // forgefmt: disable-end

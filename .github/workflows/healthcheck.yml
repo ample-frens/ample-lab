@@ -1,8 +1,8 @@
-name: chaincheck
+name: healthcheck
 
 on:
   schedule:
-    - cron: '0 4 * * *'  # Run at 4:00 AM UTC every day
+    - cron: '0 3 * * *'  # Run at 3:00 AM UTC every day
 
 jobs:
   ampleforth:
@@ -73,5 +73,3 @@ jobs:
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: spot
-
-

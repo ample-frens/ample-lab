@@ -47,7 +47,7 @@ contract SPOTChaincheck is StatefulTest {
             bondIssuerConfig.readUintArray(".trancheRatios");
 
         // Note that no trancheRatiosSize()(uint) function is provided.
-        // However, it is enforces that the sum of ratios must be 1000.
+        // However, it is enforced that the sum of ratios must be 1000.
         uint sum;
         for (uint i; i < trancheRatios.length; i++) {
             uint want = trancheRatios[i];
@@ -77,6 +77,22 @@ contract SPOTChaincheck is StatefulTest {
     function test_bondIssuer_issueWindowOffsetSec() public view {
         uint want = bondIssuerConfig.readUint(".issueWindowOffsetSec");
         uint got = bondIssuer.issueWindowOffsetSec();
+
+        assertEq(want, got);
+    }
+
+    // -- BondFactory --
+
+    function test_bondFactory_target() public view {
+        address want = bondFactoryConfig.readAddress(".target");
+        address got = bondFactory.target();
+
+        assertEq(want, got);
+    }
+
+    function test_bondFactory_trancheFactory() public view {
+        address want = bondFactoryConfig.readAddress(".trancheFactory");
+        address got = bondFactory.trancheFactory();
 
         assertEq(want, got);
     }

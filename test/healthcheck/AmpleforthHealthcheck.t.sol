@@ -10,20 +10,20 @@ import {Orchestrator} from "src/ampl/Orchestrator.sol";
 
 import {StatefulTest} from "../StatefulTest.sol";
 
-contract AmpleforthInvariants is StatefulTest {
+contract AmpleforthHealthcheck is StatefulTest {
     function setUp() public override(StatefulTest) {
         super.setUp();
     }
 
-    /// @custom:invariant The monetary policy rebased in the last 24 hours.
-    function test_MonetaryPolicyRebasedInTheLast24Hours() public view {
+    /// @dev Tests whether the monetary policy rebased in the last 24 hours.
+    function test_monetaryPolicy_RebasedInTheLast24Hours() public view {
         uint lastRebase = monetaryPolicy.lastRebaseTimestampSec();
 
         assertTrue(block.timestamp - lastRebase < 24 hours);
     }
 
-    /// @custom:invariant [2] The CPI oracle provides valid data
-    function test_CPIOracleProvidesValidData() public {
+    /// @dev Tests whether the CPI oracle can be read, ie provides valid data.
+    function test_cpiOracle_ProvidesValidData() public {
         uint val;
         bool ok;
         (val, ok) = cpiOracle.getData();
@@ -31,8 +31,17 @@ contract AmpleforthInvariants is StatefulTest {
         assertTrue(ok);
     }
 
-    /// @custom:invariant Every CPI oracle provider provides a valid report.
-    function test_EveryCPIOracleProviderProvidesValidReport() public {
+    /// @dev Tests whether the market oracle can be read, ie provides valid data.
+    function test_marketOracle_ProvidesValidData() public {
+        uint val;
+        bool ok;
+        (val, ok) = marketOracle.getData();
+
+        assertTrue(ok);
+    }
+
+    /// @dev Tests whether every CPI oracle provider has a valid report onchain.
+    function test_cpiOracle_EveryProviderHasValidReport() public {
         // Get delay and expiration thresholds.
         uint delay = cpiOracle.reportDelaySec();
         uint expiration = cpiOracle.reportExpirationTimeSec();
@@ -77,17 +86,8 @@ contract AmpleforthInvariants is StatefulTest {
         }
     }
 
-    /// @custom:invariant The market oracle providers valid data.
-    function test_MarketOracleProvidesValidData() public {
-        uint val;
-        bool ok;
-        (val, ok) = marketOracle.getData();
-
-        assertTrue(ok);
-    }
-
-    /// @custom:invariant Every market oracle provider provides a valid report.
-    function test_EveryMarketOracleProviderProvidesValidReport() public {
+    /// @dev Tests whether every CPI oracle provider has a valid report onchain.
+    function test_marketOracle_EveryProviderHasValidReport() public {
         // Get delay and expiration thresholds.
         uint delay = marketOracle.reportDelaySec();
         uint expiration = marketOracle.reportExpirationTimeSec();
@@ -132,8 +132,8 @@ contract AmpleforthInvariants is StatefulTest {
         }
     }
 
-    /// @custom:invariant Every orchestrator transaction is enabled.
-    function test_EveryOrchestratorTransactionIsEnabled() public view {
+    /// @dev Tests whether every orchestrator transaction is enabled.
+    function test_orchestrator_EveryTransactionIsEnabled() public view {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
@@ -144,8 +144,8 @@ contract AmpleforthInvariants is StatefulTest {
         }
     }
 
-    /// @custom:invariant Every orchestrator transaction is executable.
-    function test_EveryOrchestratorTransactionIsExecutable() public {
+    /// @dev Tests whether every orchestrator transaction is executable.
+    function test_orchestrator_EveryTransactionIsExecutable() public {
         uint transactionsSize = orchestrator.transactionsSize();
 
         for (uint i; i < transactionsSize; i++) {
