@@ -20,6 +20,7 @@ import {Timelock} from "src/forth/Timelock.sol";
 import {Governor} from "src/forth/Governor.sol";
 
 // SPOT
+import {SPOT} from "src/spot/SPOT.sol";
 import {BondIssuer} from "src/spot/BondIssuer.sol";
 import {BondFactory} from "src/spot/BondFactory.sol";
 import {BondController} from "src/spot/BondController.sol";
@@ -45,6 +46,7 @@ contract StatefulTest is Test {
     Governor governor;
 
     // SPOT
+    SPOT        spot;
     BondIssuer  bondIssuer;
     BondFactory bondFactory;
 
@@ -64,6 +66,7 @@ contract StatefulTest is Test {
     string governorConfig;
 
     // SPOT
+    string spotConfig;
     string bondIssuerConfig;
     string bondFactoryConfig;
 
@@ -112,12 +115,15 @@ contract StatefulTest is Test {
     }
 
     function _setUpSPOT() private {
+        spotConfig        = Database.read("./db/spot/SPOT.json");
+        spot              = SPOT(spotConfig.readAddress(".address"));
         bondIssuerConfig  = Database.read("./db/spot/BondIssuer.json");
         bondIssuer        = BondIssuer(bondIssuerConfig.readAddress(".address"));
         bondFactoryConfig = Database.read("./db/spot/BondFactory.json");
         bondFactory       = BondFactory(bondFactoryConfig.readAddress(".address"));
 
-        vm.label(address(bondIssuer), "BondIssuer");
+        vm.label(address(spot),        "SPOT");
+        vm.label(address(bondIssuer),  "BondIssuer");
         vm.label(address(bondFactory), "BondFactory");
     }
 

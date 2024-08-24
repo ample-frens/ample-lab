@@ -12,6 +12,50 @@ contract SPOTChaincheck is StatefulTest {
         super.setUp();
     }
 
+    // -- SPOT --
+
+    function test_spot_owner() public view {
+        address want = spotConfig.readAddress(".owner");
+        address got = spot.owner();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_underlying() public view {
+        address want = spotConfig.readAddress(".underlying");
+        address got = spot.underlying();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_bondIssuer() public view {
+        address want = spotConfig.readAddress(".bondIssuer");
+        address got = spot.bondIssuer();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_keeper() public view {
+        address want = spotConfig.readAddress(".keeper");
+        address got = spot.keeper();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_vault() public view {
+        address want = spotConfig.readAddress(".vault");
+        address got = spot.vault();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_feePolicy() public view {
+        address want = spotConfig.readAddress(".feePolicy");
+        address got = spot.feePolicy();
+
+        assertEq(want, got);
+    }
+
     // -- BondIssuer --
 
     function test_bondIssuer_owner() public view {

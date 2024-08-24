@@ -8,7 +8,7 @@ import {Ownable} from "../common/Ownable.sol";
 /**
  * @notice The AMPL ERC-20 unit-of-account token
  */
-interface AMPL is Ownable, ERC20 {
+interface AMPL is ERC20, Ownable {
     event LogRebase(uint indexed epoch, uint totalSupply);
     event LogMonetaryPolicyUpdated(address monetaryPolicy);
 
