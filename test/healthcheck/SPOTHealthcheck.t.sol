@@ -8,6 +8,10 @@ contract SPOTHealthcheck is StatefulTest {
         super.setUp();
     }
 
+    function test_spot_holdsNoRawAMPL() public {
+        assertEq(ampl.balanceOf(address(spot)), 0);
+    }
+
     // TODO: Not sure whether this actually true.
     function test_bondIssuer_HasAtLeastThreeActiveBonds() public {
         assertTrue(bondIssuer.activeCount() > 3);

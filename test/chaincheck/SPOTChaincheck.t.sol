@@ -56,6 +56,34 @@ contract SPOTChaincheck is StatefulTest {
         assertEq(want, got);
     }
 
+    function test_spot_minTrancheMaturitySec() public view {
+        uint want = spotConfig.readUint(".minTrancheMaturitySec");
+        uint got = spot.minTrancheMaturitySec();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_maxTrancheMaturitySec() public view {
+        uint want = spotConfig.readUint(".maxTrancheMaturitySec");
+        uint got = spot.maxTrancheMaturitySec();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_maxSupply() public view {
+        uint want = spotConfig.readUint(".maxSupply");
+        uint got = spot.maxSupply();
+
+        assertEq(want, got);
+    }
+
+    function test_spot_maxDepositTrancheValuePerc() public view {
+        uint want = spotConfig.readUint(".maxDepositTrancheValuePerc");
+        uint got = spot.maxDepositTrancheValuePerc();
+
+        assertEq(want, got);
+    }
+
     // -- BondIssuer --
 
     function test_bondIssuer_owner() public view {

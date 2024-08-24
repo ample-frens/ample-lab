@@ -15,6 +15,11 @@ interface SPOT is ERC20, Ownable {
     function vault() external view returns (address);
     function feePolicy() external view returns (address);
 
+    function minTrancheMaturitySec() external view returns (uint);
+    function maxTrancheMaturitySec() external view returns (uint);
+    function maxSupply() external view returns (uint);
+    function maxDepositTrancheValuePerc() external view returns (uint);
+
     // -- afterStateUpdate --
     // -- Reserve
     function getReserveCount() external returns (uint);

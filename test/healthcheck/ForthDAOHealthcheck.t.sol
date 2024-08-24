@@ -22,6 +22,7 @@ contract ForthDAOHealthcheck is StatefulTest {
         assertEq(governor.admin(), address(timelock));
 
         // SPOT
+        assertEq(spot.owner(), address(timelock));
         assertEq(bondIssuer.owner(), address(timelock));
     }
 

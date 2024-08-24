@@ -6,7 +6,8 @@
     "collateral": "0xD46bA6D942050d489DBd938a2C909A5d5039A161",
     "maxMaturityDuration": 2419200,
     "trancheRatios": [
-        333, 667
+        333,
+        667
     ],
     "minIssueTimeIntervalSec": 604800,
     "issueWindowOffsetSec": 529200
