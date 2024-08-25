@@ -23,7 +23,7 @@ jobs:
         id: build
 
       - name: Run invariants test suite
-        run: forge test --match-contract "AmpleforthInvariants"
+        run: forge test --match-contract "AmpleforthInvariantcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: ampleforth
@@ -46,7 +46,7 @@ jobs:
         id: build
 
       - name: Run invariants test suite
-        run: forge test --match-contract "ForthDAOInvariants"
+        run: forge test --match-contract "ForthDAOInvariantcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: forth-dao
@@ -69,7 +69,7 @@ jobs:
         id: build
 
       - name: Run invariants test suite
-        run: forge test --match-contract "SPOTInvariants"
+        run: forge test --match-contract "SPOTInvariantcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: spot
