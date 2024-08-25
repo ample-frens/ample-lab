@@ -34,7 +34,8 @@ interface SPOT is ERC20, Ownable {
     function pause() external;
     function unpause() external;
     function updateMaxSupply(uint maxSupply_) external;
-    function updateMaxDepositTrancheValuePerc(uint maxDepositTrancheValuePerc_) external;
+    function updateMaxDepositTrancheValuePerc(uint maxDepositTrancheValuePerc_)
+        external;
 
     // -- onlyOwner
     function updateVault(address vault_) external;
@@ -42,13 +43,8 @@ interface SPOT is ERC20, Ownable {
     function updateBondIssuer(address bondIssuer_) external;
     function updateFeePolicy(address feePolicy_) external;
     function updateTolerableTrancheMaturity(
-        uint256 minTrancheMaturitySec_,
-        uint256 maxTrancheMaturitySec_
+        uint minTrancheMaturitySec_,
+        uint maxTrancheMaturitySec_
     ) external;
-    function transferERC20(
-        address token,
-        address to,
-        uint256 amount
-    ) external;
+    function transferERC20(address token, address to, uint amount) external;
 }
-

@@ -22,8 +22,8 @@ jobs:
         run: forge build
         id: build
 
-      - name: Run chaincheck test suite
-        run: forge test --match-contract "AmpleforthChaincheck"
+      - name: Run healthcheck test suite
+        run: forge test --match-contract "Ampleforthhealthcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: ampleforth
@@ -45,8 +45,8 @@ jobs:
         run: forge build
         id: build
 
-      - name: Run chaincheck test suite
-        run: forge test --match-contract "ForthDAOChaincheck"
+      - name: Run healthcheck test suite
+        run: forge test --match-contract "ForthDAOhealthcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: forth-dao
@@ -68,8 +68,8 @@ jobs:
         run: forge build
         id: build
 
-      - name: Run chaincheck test suite
-        run: forge test --match-contract "SPOTChaincheck"
+      - name: Run healthcheck test suite
+        run: forge test --match-contract "SPOThealthcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: spot

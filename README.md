@@ -56,7 +56,7 @@ $ forge test --mc "Healthcheck"
 
 #### ForthDAO Healthchecks
 
-- The timelock owns every contract except itself
+- The ForthDAO timelock owns every protocol contract
 - A DAO vote can be initiated and executed before a CPI report's activation delay passed
 
 #### SPOT Healthchecks

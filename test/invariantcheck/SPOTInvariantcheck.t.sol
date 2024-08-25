@@ -30,7 +30,7 @@ contract SPOTInvariantcheck is StatefulTest {
     function test_spot_depositTrancheIsSenior() public {
         // A bond's senior tranche is at index 0.
         address want;
-        (want, /*ratio*/) = BondController(spot.getDepositBond()).tranches(0);
+        (want, /*ratio*/ ) = BondController(spot.getDepositBond()).tranches(0);
 
         address got = spot.getDepositTranche();
 

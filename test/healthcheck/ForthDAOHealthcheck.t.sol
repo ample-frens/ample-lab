@@ -8,7 +8,7 @@ contract ForthDAOHealthcheck is StatefulTest {
         super.setUp();
     }
 
-    /// @dev Tests whether every contract is owned by the ForthDAO's timelock.
+    /// @dev The ForthDAO timelock owns every protocol contract.
     function test_timelock_OwnsEveryContract() public view {
         // Ampleforth
         assertEq(ampl.owner(), address(timelock));

@@ -22,7 +22,10 @@ interface BondController {
         uint ratio;
     }
 
-    function tranches(uint index) external view returns (address token, uint ratio);
+    function tranches(uint index)
+        external
+        view
+        returns (address token, uint ratio);
     function trancheCount() external view returns (uint);
     function trancheTokenAddresses(address tranche_)
         external
