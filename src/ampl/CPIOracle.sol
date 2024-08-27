@@ -36,6 +36,7 @@ interface CPIOracle is Ownable {
     function reportDelaySec() external view returns (uint);
 
     function scalar() external view returns (uint);
+    function DECIMALS() external view returns (uint);
 
     // -- Read Function --
     function getData() external returns (uint, bool);

@@ -7,4 +7,6 @@ contract ForthDAOInvariantcheck is StatefulTest {
     function setUp() public override(StatefulTest) {
         super.setUp();
     }
+
+    function test_nop() public {}
 }

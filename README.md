@@ -61,6 +61,7 @@ $ forge test --mc "Healthcheck"
 
 #### SPOT Healthchecks
 
+- SPOT holds no raw AMPL
 - Bond issuer has at least three active bonds
 
 ### Invariants
@@ -79,6 +80,10 @@ $ forge test --mc "Invariants"
 
 #### SPOT Invariants
 
+- SPOT's underlying is AMPL
+- SPOT's `_reserveAt(0)` is AMPL
+- Deposit bond is collateralized via AMPL
+- Deposit tranche is senior
 - Every issued bond is collateralized via AMPL
 
 ## Security Reviews

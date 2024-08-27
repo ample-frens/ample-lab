@@ -62,7 +62,7 @@ contract AmpleforthHealthcheck is StatefulTest {
             passedDelay = block.timestamp - age > delay;
             expired = block.timestamp - age > expiration;
             if (passedDelay && !expired) {
-                // Continue is report is valid.
+                // Continue if report is valid.
                 continue;
             }
 
@@ -72,7 +72,7 @@ contract AmpleforthHealthcheck is StatefulTest {
             passedDelay = block.timestamp - age > delay;
             expired = block.timestamp - age > expiration;
             if (passedDelay && !expired) {
-                // Continue is report is valid.
+                // Continue if report is valid.
                 continue;
             }
 
@@ -83,6 +83,62 @@ contract AmpleforthHealthcheck is StatefulTest {
                 )
             );
             fail();
+        }
+    }
+
+    /// @dev Tests whether every report whose delay did not pass yet is within
+    ///      a 5% spread of the current oracle's value.
+    function test_cpiOracle_EveryProvidersNextReportIsWithinExpectedSpread() public {
+        // Get oracle's current cpi value.
+        uint cpi;
+        bool ok;
+        (cpi, ok) = cpiOracle.getData();
+        assertTrue(ok);
+
+        // Get oracle's delay threshold, scalar, and decimals.
+        uint delay = cpiOracle.reportDelaySec();
+        uint scalar = cpiOracle.scalar();
+        uint decimals = cpiOracle.DECIMALS();
+
+        // Verify every not-yet-valid report is within spread of current cpi.
+        uint providersSize = cpiOracle.providersSize();
+        for (uint i; i < providersSize; i++) {
+            address provider = cpiOracle.providers(i);
+            assertTrue(provider != address(0));
+
+            CPIOracle.Report memory report;
+            uint age;
+            bool passedDelay;
+
+            // Check report[0].
+            report = cpiOracle.providerReports(provider, 0);
+            age = report.timestamp;
+            passedDelay = block.timestamp - age > delay;
+            if (!passedDelay) {
+                // Report did not pass delay yet.
+                //
+                // Note to adjust report's payload with scalar.
+                uint payload = report.payload;
+                uint result = (payload * scalar) / (10**decimals);
+
+                // Verify report's cpi is within 5% spread of current.
+                assertApproxEqRel(cpi, result, 5e17);
+            }
+
+            // Check report[1].
+            report = cpiOracle.providerReports(provider, 1);
+            age = report.timestamp;
+            passedDelay = block.timestamp - age > delay;
+            if (!passedDelay) {
+                // Report did not pass delay yet.
+                //
+                // Note to adjust report's payload with scalar.
+                uint payload = report.payload;
+                uint result = (payload * scalar) / (10**decimals);
+
+                // Verify report's cpi is within 5% spread of current.
+                assertApproxEqRel(cpi, result, 5e17);
+            }
         }
     }
 
@@ -108,7 +164,7 @@ contract AmpleforthHealthcheck is StatefulTest {
             passedDelay = block.timestamp - age > delay;
             expired = block.timestamp - age > expiration;
             if (passedDelay && !expired) {
-                // Continue is report is valid.
+                // Continue if report is valid.
                 continue;
             }
 
@@ -118,7 +174,7 @@ contract AmpleforthHealthcheck is StatefulTest {
             passedDelay = block.timestamp - age > delay;
             expired = block.timestamp - age > expiration;
             if (passedDelay && !expired) {
-                // Continue is report is valid.
+                // Continue if report is valid.
                 continue;
             }
 
