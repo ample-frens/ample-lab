@@ -88,7 +88,9 @@ contract AmpleforthHealthcheck is StatefulTest {
 
     /// @dev Tests whether every report whose delay did not pass yet is within
     ///      a 5% spread of the current oracle's value.
-    function test_cpiOracle_EveryProvidersNextReportIsWithinExpectedSpread() public {
+    function test_cpiOracle_EveryProvidersNextReportIsWithinExpectedSpread()
+        public
+    {
         // Get oracle's current cpi value.
         uint cpi;
         bool ok;
@@ -119,7 +121,7 @@ contract AmpleforthHealthcheck is StatefulTest {
                 //
                 // Note to adjust report's payload with scalar.
                 uint payload = report.payload;
-                uint result = (payload * scalar) / (10**decimals);
+                uint result = (payload * scalar) / (10 ** decimals);
 
                 // Verify report's cpi is within 5% spread of current.
                 assertApproxEqRel(cpi, result, 5e17);
@@ -134,7 +136,7 @@ contract AmpleforthHealthcheck is StatefulTest {
                 //
                 // Note to adjust report's payload with scalar.
                 uint payload = report.payload;
-                uint result = (payload * scalar) / (10**decimals);
+                uint result = (payload * scalar) / (10 ** decimals);
 
                 // Verify report's cpi is within 5% spread of current.
                 assertApproxEqRel(cpi, result, 5e17);
