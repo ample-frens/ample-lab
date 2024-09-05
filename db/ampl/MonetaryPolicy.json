@@ -6,10 +6,9 @@
     "cpiOracle": "0x2A18bfb505b49AED12F19F271cC1183F98ff4f71",
     "marketOracle": "0x99C9775E076FDF99388C029550155032Ba2d8914",
     "orchestrator": "0x6FB00a180781E75F87E2B690Af0196bAa77C7e7C",
-    "deviationThreshold": 50000000000000000,
+    "deviationThreshold": 25000000000000000,
     "rebaseLag": 1,
     "minRebaseTimeIntervalSec": 86400,
     "rebaseWindowOffsetSec": 7200,
     "rebaseWindowLengthSec": 1200
 }
-
