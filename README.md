@@ -24,7 +24,7 @@ $ source .env
 
 ## Continuous Security Monitoring
 
-### Chaincheck
+### Chaincheck [![chaincheck](https://github.com/ample-frens/ample-lab/actions/workflows/chaincheck.yml/badge.svg)](https://github.com/ample-frens/ample-lab/actions/workflows/chaincheck.yml)
 
 The `chaincheck` test suite verifies the current Ethereum mainnet state against the lab's local
 database `db/`. This ensures changes in security configurations are noticed.
@@ -34,7 +34,7 @@ Run via:
 $ forge test --mc "Chaincheck"
 ```
 
-### Healthchecks
+### Healthchecks [![healthchecks](https://github.com/ample-frens/ample-lab/actions/workflows/healthcheck.yml/badge.svg)](https://github.com/ample-frens/ample-lab/actions/workflows/healthcheck.yml)
 
 The `healthcheck` test suite consists of multiple healthchecks against different parts of the
 protocol(s) that are run against the current Ethereum mainnet state.
@@ -64,7 +64,7 @@ $ forge test --mc "Healthcheck"
 - SPOT holds no raw AMPL
 - Bond issuer has at least three active bonds
 
-### Invariants
+### Invariants [![invariants](https://github.com/ample-frens/ample-lab/actions/workflows/invariants.yml/badge.svg?branch=main)](https://github.com/ample-frens/ample-lab/actions/workflows/invariants.yml)
 
 The `invariants` test suite verifies different invariants against the current Ethereum mainnet
 state.
