@@ -23,7 +23,7 @@ jobs:
         id: build
 
       - name: Run healthcheck test suite
-        run: forge test --match-contract "AmpleforthHealthcheck"
+        run: forge test --match-contract "AmpleforthHealthcheck" -vv
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: ampleforth
@@ -46,7 +46,7 @@ jobs:
         id: build
 
       - name: Run healthcheck test suite
-        run: forge test --match-contract "ForthDAOHealthcheck"
+        run: forge test --match-contract "ForthDAOHealthcheck" -vv
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: forth-dao
@@ -69,7 +69,7 @@ jobs:
         id: build
 
       - name: Run healthcheck test suite
-        run: forge test --match-contract "SPOTHealthcheck"
+        run: forge test --match-contract "SPOTHealthcheck" -vv
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: spot

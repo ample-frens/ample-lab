@@ -14,7 +14,7 @@ chaincheck: ## Run the chaincheck test suite
 
 .PHONY: healthcheck
 healthcheck: ## Run the healthcheck test suite
-		@forge test --mc "Healthcheck"
+		@forge test --mc "Healthcheck" -vv
 
 .PHONY: invariantcheck
 invariantcheck: ## Run the invariantcheck test suite
