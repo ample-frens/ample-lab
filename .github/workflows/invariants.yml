@@ -5,7 +5,7 @@ on:
     - cron: '0 6 * * *' # Run at 6:00 AM UTC every day
 
 jobs:
-  ampleforth:
+  invariants:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,53 +23,7 @@ jobs:
         id: build
 
       - name: Run invariants test suite
-        run: forge test --match-contract "AmpleforthInvariantcheck"
+        run: forge test --match-contract "Invariantcheck"
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
-        id: ampleforth
-
-  forth-dao:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-
-      - name: Run Forge build
-        run: forge build
-        id: build
-
-      - name: Run invariants test suite
-        run: forge test --match-contract "ForthDAOInvariantcheck"
-        env:
-          RPC_URL: ${{ secrets.RPC_URL }}
-        id: forth-dao
-
-  spot:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-
-      - name: Run Forge build
-        run: forge build
-        id: build
-
-      - name: Run invariants test suite
-        run: forge test --match-contract "SPOTInvariantcheck"
-        env:
-          RPC_URL: ${{ secrets.RPC_URL }}
-        id: spot
+        id: invariants
