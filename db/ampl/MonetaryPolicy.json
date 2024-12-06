@@ -10,5 +10,9 @@
     "rebaseLag": 1,
     "minRebaseTimeIntervalSec": 86400,
     "rebaseWindowOffsetSec": 7200,
-    "rebaseWindowLengthSec": 1200
+    "rebaseWindowLengthSec": 1200,
+    "proxy": {
+        "admin": "0xD530ff90A4943Fa5AD4AFe94CF9006fb081d2778",
+        "implementation": "0xD0e3F82ab04B983C05263cF3BF52481FbAa435b1"
+    }
 }

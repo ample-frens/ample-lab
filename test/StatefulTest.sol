@@ -25,7 +25,10 @@ import {BondIssuer} from "src/spot/BondIssuer.sol";
 import {BondFactory} from "src/spot/BondFactory.sol";
 import {BondController} from "src/spot/BondController.sol";
 
-contract StatefulTest is Test {
+// Legacy
+import {ProxyAdmin} from "src/common/ProxyAdmin.sol";
+
+abstract contract StatefulTest is Test {
     using stdJson for string;
 
     // forgefmt: disable-start
@@ -50,6 +53,9 @@ contract StatefulTest is Test {
     BondIssuer  bondIssuer;
     BondFactory bondFactory;
 
+    // Legacy
+    ProxyAdmin proxyAdmin;
+
     // -- Configs
 
     // Ampleforth
@@ -70,6 +76,9 @@ contract StatefulTest is Test {
     string bondIssuerConfig;
     string bondFactoryConfig;
 
+    // Legacy
+    string proxyAdminConfig;
+
     function setUp() public virtual {
         // Create mainnet fork from $RPC_URL.
         vm.createSelectFork(vm.envString("RPC_URL"));
@@ -77,6 +86,7 @@ contract StatefulTest is Test {
         _setUpAmpleforth();
         _setUpForthDAO();
         _setUpSPOT();
+        _setUpLegacy();
     }
 
     function _setUpAmpleforth() private {
@@ -125,6 +135,13 @@ contract StatefulTest is Test {
         vm.label(address(spot),        "SPOT");
         vm.label(address(bondIssuer),  "BondIssuer");
         vm.label(address(bondFactory), "BondFactory");
+    }
+
+    function _setUpLegacy() private {
+        proxyAdminConfig = Database.read("./db/legacy/ProxyAdmin.json");
+        proxyAdmin       = ProxyAdmin(proxyAdminConfig.readAddress(".address"));
+
+        vm.label(address(proxyAdmin), "ProxyAdmin");
     }
 
     // forgefmt: disable-end

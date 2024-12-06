@@ -15,5 +15,7 @@ contract AmpleforthInvariantcheck is StatefulTest {
         super.setUp();
     }
 
+    // TODO: AMPL is not upgradeable. Verify via Proxy interface.
+
     function test_nop() public {}
 }

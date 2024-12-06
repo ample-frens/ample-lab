@@ -4,6 +4,7 @@ pragma solidity ^0.8.4;
 import {stdJson} from "forge-std/StdJson.sol";
 
 import {StatefulTest} from "../StatefulTest.sol";
+import {ProxyLib} from "../ProxyLib.sol";
 
 contract AmpleforthChaincheck is StatefulTest {
     using stdJson for string;
@@ -26,6 +27,13 @@ contract AmpleforthChaincheck is StatefulTest {
         address got = ampl.monetaryPolicy();
 
         assertEq(want, got);
+    }
+
+    function test_ampl_proxy() public {
+        address admin = amplConfig.readAddress(".proxy.admin");
+        address impl = amplConfig.readAddress(".proxy.implementation");
+
+        assertTrue(ProxyLib.verify(address(ampl), admin, impl));
     }
 
     // -- WAMPL --
@@ -108,6 +116,15 @@ contract AmpleforthChaincheck is StatefulTest {
 
         assertEq(want, got);
     }
+
+    /*
+    TODO: function test_monetaryPolicy_proxy() public {
+        address admin = monetaryPolicyConfig.readAddress(".proxy.admin");
+        address impl = monetaryPolicyConfig.readAddress(".proxy.implementation");
+
+        assertTrue(ProxyLib.verify(address(monetaryPolicy), admin, impl));
+    }
+    */
 
     // -- CPI Oracle --
 
