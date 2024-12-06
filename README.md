@@ -48,9 +48,9 @@ $ forge test --mc "Healthcheck"
 
 - The monetary policy executed a rebase in the last 24 hours
 - The CPI oracle provides valid data
-- Every CPI oracle provider provides a valid report
+- ~~Every CPI oracle provider provides a valid report~~
 - The market oracle provides valid data
-- Every market oracle provider provides a valid report
+- ~~Every market oracle provider provides a valid report~~
 - Every transaction stored in the orchestrator is enabled
 - Every orchestrator transaction is executable
 

@@ -12,7 +12,7 @@
     "rebaseWindowOffsetSec": 7200,
     "rebaseWindowLengthSec": 1200,
     "proxy": {
-        "admin": "0xD530ff90A4943Fa5AD4AFe94CF9006fb081d2778",
-        "implementation": "0xD0e3F82ab04B983C05263cF3BF52481FbAa435b1"
+        "admin": "0x6c8a3A2CC9b9831d550433626b262fB9365b5f63",
+        "implementation": "0x671f768157f6C8A33aDA9b864C8DfaF5b13f1e9F"
     }
 }

@@ -25,7 +25,7 @@ import {BondIssuer} from "src/spot/BondIssuer.sol";
 import {BondFactory} from "src/spot/BondFactory.sol";
 import {BondController} from "src/spot/BondController.sol";
 
-// Legacy
+// ProxyAdmin
 import {ProxyAdmin} from "src/common/ProxyAdmin.sol";
 
 abstract contract StatefulTest is Test {
@@ -53,8 +53,9 @@ abstract contract StatefulTest is Test {
     BondIssuer  bondIssuer;
     BondFactory bondFactory;
 
-    // Legacy
-    ProxyAdmin proxyAdmin;
+    // ProxyAdmins
+    ProxyAdmin proxyAdmin_AMPL;
+    ProxyAdmin proxyAdmin_MonetaryPolicy;
 
     // -- Configs
 
@@ -76,8 +77,9 @@ abstract contract StatefulTest is Test {
     string bondIssuerConfig;
     string bondFactoryConfig;
 
-    // Legacy
-    string proxyAdminConfig;
+    // ProxyAdmins
+    string proxyAdminConfig_AMPL;
+    string proxyAdminConfig_MonetaryPolicy;
 
     function setUp() public virtual {
         // Create mainnet fork from $RPC_URL.
@@ -86,7 +88,7 @@ abstract contract StatefulTest is Test {
         _setUpAmpleforth();
         _setUpForthDAO();
         _setUpSPOT();
-        _setUpLegacy();
+        _setUpProxyAdmins();
     }
 
     function _setUpAmpleforth() private {
@@ -137,11 +139,14 @@ abstract contract StatefulTest is Test {
         vm.label(address(bondFactory), "BondFactory");
     }
 
-    function _setUpLegacy() private {
-        proxyAdminConfig = Database.read("./db/legacy/ProxyAdmin.json");
-        proxyAdmin       = ProxyAdmin(proxyAdminConfig.readAddress(".address"));
+    function _setUpProxyAdmins() private {
+        proxyAdminConfig_AMPL = Database.read("./db/proxy-admins/AMPL.json");
+        proxyAdmin_AMPL       = ProxyAdmin(proxyAdminConfig_AMPL.readAddress(".address"));
+        proxyAdminConfig_MonetaryPolicy = Database.read("./db/proxy-admins/MonetaryPolicy.json");
+        proxyAdmin_MonetaryPolicy       = ProxyAdmin(proxyAdminConfig_MonetaryPolicy.readAddress(".address"));
 
-        vm.label(address(proxyAdmin), "ProxyAdmin");
+        vm.label(address(proxyAdmin_AMPL), "proxyAdmin_AMPL");
+        vm.label(address(proxyAdmin_MonetaryPolicy), "proxyAdmin_MonetaryPolicy");
     }
 
     // forgefmt: disable-end

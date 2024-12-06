@@ -16,9 +16,17 @@ contract LegacyChaincheck is StatefulTest {
 
     // -- ProxyAdmin --
 
+    //// TODO:
     function test_proxyAdmin_ownable() public view {
-        address want = proxyAdminConfig.readAddress(".owner");
-        address got = proxyAdmin.owner();
+        address want = proxyAdminConfig_AMPL.readAddress(".owner");
+        address got = proxyAdmin_AMPL.owner();
+
+        assertEq(want, got);
+    }
+
+    function test_proxyAdmin_ownable2() public view {
+        address want = proxyAdminConfig_MonetaryPolicy.readAddress(".owner");
+        address got = proxyAdmin_MonetaryPolicy.owner();
 
         assertEq(want, got);
     }

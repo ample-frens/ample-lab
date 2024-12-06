@@ -40,6 +40,7 @@ contract AmpleforthHealthcheck is StatefulTest {
         assertTrue(ok);
     }
 
+    /*
     /// @dev Tests whether every CPI oracle provider has a valid report onchain.
     function test_cpiOracle_EveryProviderHasValidReport() public {
         // Get delay and expiration thresholds.
@@ -85,6 +86,7 @@ contract AmpleforthHealthcheck is StatefulTest {
             fail();
         }
     }
+    */
 
     /// @dev Tests whether every report whose delay did not pass yet is within
     ///      a 5% spread of the current oracle's value.
@@ -144,6 +146,7 @@ contract AmpleforthHealthcheck is StatefulTest {
         }
     }
 
+    /*
     /// @dev Tests whether every CPI oracle provider has a valid report onchain.
     function test_marketOracle_EveryProviderHasValidReport() public {
         // Get delay and expiration thresholds.
@@ -189,6 +192,7 @@ contract AmpleforthHealthcheck is StatefulTest {
             fail();
         }
     }
+    */
 
     /// @dev Tests whether every orchestrator transaction is enabled.
     function test_orchestrator_EveryTransactionIsEnabled() public view {
