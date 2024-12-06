@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
-// TODO: docs, link to OZ version.
 /**
- * @notice The Proxy contract
+ * @notice Commonly used Proxy contract from OZ
  */
 interface Proxy {
     // All function are onlyAdmin.

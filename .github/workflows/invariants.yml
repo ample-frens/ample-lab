@@ -27,3 +27,4 @@ jobs:
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
         id: invariants
+

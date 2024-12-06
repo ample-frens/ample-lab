@@ -4,9 +4,8 @@ pragma solidity ^0.8.4;
 import {Ownable} from "./Ownable.sol";
 import {Proxy} from "./Proxy.sol";
 
-// TODO: docs.
 /**
- * @notice The ProxyAdmin contract
+ * @notice Commonly used ProxyAdmin contract
  */
 interface ProxyAdmin is Ownable {
     function getProxyAdmin(Proxy proxy) external view returns (address);
