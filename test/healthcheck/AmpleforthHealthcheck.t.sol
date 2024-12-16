@@ -10,6 +10,9 @@ import {Orchestrator} from "src/ampl/Orchestrator.sol";
 
 import {StatefulTest} from "../StatefulTest.sol";
 
+// TODO: Use AMPL/ETH price from UniTWAP to verify market oracle reports.
+//       See https://etherscan.io/address/0x0f8f519878c10ce36C6aAF89c1AeefaaDE5D7881#code
+
 contract AmpleforthHealthcheck is StatefulTest {
     function setUp() public override(StatefulTest) {
         super.setUp();

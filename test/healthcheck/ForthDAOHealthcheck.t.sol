@@ -1,9 +1,15 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 pragma solidity ^0.8.4;
 
+import {stdJson} from "forge-std/StdJson.sol";
+
 import {StatefulTest} from "../StatefulTest.sol";
 
+import {ProxyAdmin} from "src/common/ProxyAdmin.sol";
+
 contract ForthDAOHealthcheck is StatefulTest {
+    using stdJson for string;
+
     function setUp() public override(StatefulTest) {
         super.setUp();
     }
@@ -16,6 +22,12 @@ contract ForthDAOHealthcheck is StatefulTest {
         assertEq(marketOracle.owner(), address(timelock));
         assertEq(monetaryPolicy.owner(), address(timelock));
         assertEq(orchestrator.owner(), address(timelock));
+        // Note that the monetary policy is behind a proxy.
+        assertEq(
+            ProxyAdmin(monetaryPolicyConfig.readAddress(".proxy.admin.address"))
+                .owner(),
+            address(timelock)
+        );
 
         // Forth
         assertEq(forth.minter(), address(timelock));
